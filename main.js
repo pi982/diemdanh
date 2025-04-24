@@ -53,7 +53,7 @@
     });
     // Các biến và khởi tạo
     const webAppUrl =
-        "https://script.google.com/macros/s/AKfycbyeyil9wEk2B6twFvbvhXJj7fMd7Izl-ZXzQ6jaxSSW-0al1coxN87OiZwfv9yj9b28/exec";
+        "https://script.google.com/macros/s/AKfycbxyZkkL3uRTcLVUbcxytOKiKfWOAow_hKuwHCW6FcHVSAXTv38ZnYfnW4sCXscdJ2oN/exec";
     let currentAttendanceType = "di-le"; // Mặc định
     let currentMode = "qr"; // Có thể là "qr", "search", "report"
     const searchCache = new Map();
