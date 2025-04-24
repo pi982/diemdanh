@@ -1,10 +1,13 @@
 ﻿const CACHE_NAME = 'attendance-cache-v5';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/main.js',
-    '/manifest.json'
+    '/diemdanh/',
+    '/diemdanh/index.html',
+    '/diemdanh/styles.css',
+    '/diemdanh/main.js',
+    '/diemdanh/manifest.json',
+    '/diemdanh/images/icon-192.png',
+    '/diemdanh/images/icon-512.png'
+
 ];
 
 self.addEventListener('install', event => {
