@@ -4,9 +4,9 @@ const urlsToCache = [
     '/diemdanh/index.html',
     '/diemdanh/styles.css',
     '/diemdanh/main.js',
-    '/diemdanh/manifest.json',
-    '/diemdanh/images/icon-192.png',
-    '/diemdanh/images/icon-512.png'
+    '/diemdanh/manifest.json'
+    //'/diemdanh/images/icon-192.png',
+    //'/diemdanh/images/icon-512.png'
 
 ];
 
