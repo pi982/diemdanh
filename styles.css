@@ -335,7 +335,7 @@ table {
   min-width: 600px; /* Đặt chiều rộng tối thiểu để có scrollbar trên mobile */
   border-collapse: collapse;
   background-color: #fff;
-  font-size: 0.9rem; /* Giảm nhẹ font chữ bảng */
+  font-size: 0.8rem; /* Giảm nhẹ font chữ bảng */
   /* margin-top: 0; */ /* Bỏ margin khi đã có ở .table-responsive */
 }
 
@@ -554,7 +554,7 @@ header,
   border-radius: 0;
 }
 #qr-scanner .loading {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #fff;
 }
 
@@ -628,6 +628,7 @@ header,
   }
 
   header h2 {
+    margin: 15px 0;
     font-size: 1.6rem; /* Giảm thêm */
   }
 
@@ -694,10 +695,10 @@ header,
   }
   table {
     min-width: 0; /* Cho phép bảng co lại hoàn toàn nếu cần */
-    font-size: 0.85rem; /* Giảm font bảng thêm */
+    font-size: 0.7rem; /* Giảm font bảng thêm */
   }
   th, td {
-     padding: 6px 8px; /* Giảm padding ô */
+     padding: 5px 7px; /* Giảm padding ô */
   }
   /* Có thể ẩn một số cột không quan trọng trên mobile nếu cần */
   /* th:nth-child(3), td:nth-child(3) { display: none; } */
