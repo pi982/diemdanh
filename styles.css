@@ -329,23 +329,21 @@ video {
 }
 
 table {
-  /* table-layout: auto; */ /* Cân nhắc dùng fixed nếu biết chiều rộng cột */
-  table-layout: fixed; /* Thử dùng fixed để hiệu suất tốt hơn */
+  table-layout: auto; /* Cân nhắc dùng fixed nếu biết chiều rộng cột */
   width: 100%; /* Đảm bảo bảng không cố gắng rộng hơn container */
   min-width: 600px; /* Đặt chiều rộng tối thiểu để có scrollbar trên mobile */
   border-collapse: collapse;
   background-color: #fff;
   font-size: 0.8rem; /* Giảm nhẹ font chữ bảng */
-  /* margin-top: 0; */ /* Bỏ margin khi đã có ở .table-responsive */
+  margin-top: 5px;  /* Bỏ margin khi đã có ở .table-responsive */
 }
 
 th,
 td {
   word-wrap: break-word;
   border: 1px solid #ddd;
-  padding: 8px 10px; /* Giảm padding */
-  text-align: left; /* Căn lề trái thường dễ đọc hơn */
-  vertical-align: middle; /* Căn giữa theo chiều dọc */
+  padding: 6px 8px; /* Giảm padding */
+  text-align: center;
 }
 th {
   background-color: var(--bg-color); /* Thêm nền cho header */
@@ -398,11 +396,11 @@ td:last-child, th:last-child {
   color: #fff;
   border: none;
   /* Điều chỉnh padding/font */
-  padding: 8px 15px;
+  padding: 6px 12px;
   border-radius: 5px;
   margin: 5px;
   cursor: pointer;
-  font-size: 0.9rem; /* Giảm font */
+  font-size: 0.8rem; /* Giảm font */
 }
 
 .pagination-btn:hover {
@@ -414,7 +412,7 @@ td:last-child, th:last-child {
   background: var(--primary-color);
   color: #fff;
   /* Điều chỉnh padding/font */
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 5px;
   font-size: 1rem; /* Giảm font */
