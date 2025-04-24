@@ -205,7 +205,7 @@ header h2 {
   position: relative;
   /* Thêm overflow nếu nội dung có thể dài */
   overflow-y: auto;
-  max-height: calc(100vh - 250px); /* Ví dụ giới hạn chiều cao */
+  max-height: calc(100vh - 200px); /* Ví dụ giới hạn chiều cao */
 }
 
 /* --- Trạng thái ẩn/hiện và animation --- */
@@ -329,12 +329,12 @@ video {
 }
 
 table {
-  table-layout: auto; /* Cân nhắc dùng fixed nếu biết chiều rộng cột */
+  table-layout: fixed; /* Cân nhắc dùng fixed nếu biết chiều rộng cột */
   width: 100%; /* Đảm bảo bảng không cố gắng rộng hơn container */
   min-width: 600px; /* Đặt chiều rộng tối thiểu để có scrollbar trên mobile */
   border-collapse: collapse;
   background-color: #fff;
-  font-size: 0.8rem; /* Giảm nhẹ font chữ bảng */
+  font-size: 0.75rem; /* Giảm nhẹ font chữ bảng */
   margin-top: 5px;  /* Bỏ margin khi đã có ở .table-responsive */
 }
 
@@ -400,7 +400,7 @@ td:last-child, th:last-child {
   border-radius: 5px;
   margin: 5px;
   cursor: pointer;
-  font-size: 0.8rem; /* Giảm font */
+  font-size: 0.7rem; /* Giảm font */
 }
 
 .pagination-btn:hover {
@@ -693,7 +693,7 @@ header,
   }
   table {
     min-width: 0; /* Cho phép bảng co lại hoàn toàn nếu cần */
-    font-size: 0.7rem; /* Giảm font bảng thêm */
+    font-size: 0.65rem; /* Giảm font bảng thêm */
   }
   th, td {
      padding: 5px 7px; /* Giảm padding ô */
