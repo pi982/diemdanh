@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     // Check đăng nhập từ localStorage (1 tiếng)
     const loginTimestamp = localStorage.getItem("loginTimestamp");
     const oneHour = 3600000; // 1 hour in milliseconds
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Các biến và khởi tạo
     const webAppUrl =
-        "https://script.google.com/macros/s/AKfycbxyZkkL3uRTcLVUbcxytOKiKfWOAow_hKuwHCW6FcHVSAXTv38ZnYfnW4sCXscdJ2oN/exec";
+        "https://script.google.com/macros/s/AKfycbyeyil9wEk2B6twFvbvhXJj7fMd7Izl-ZXzQ6jaxSSW-0al1coxN87OiZwfv9yj9b28/exec";
     let currentAttendanceType = "di-le"; // Mặc định
     let currentMode = "qr"; // Có thể là "qr", "search", "report"
     const searchCache = new Map();
