@@ -395,12 +395,14 @@ td {
 }
 @media (max-width: 600px) {
   header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   .mode-toggle,
   .function-container,
   .login-container {
     max-width: 100%;
+    padding: 0 10px;
+
   }
   .function-container {
     flex-direction: column;
@@ -409,17 +411,17 @@ td {
   #search-button,
   #report-query,
   #report-button {
-    font-size: 2.2rem;
-    padding: 15px;
+    font-size: 1.6rem;
+    padding: 10px;
   }
   .toggle-button {
-    font-size: 2rem;
+    font-size: 1.6rem;
     padding: 10px;
     margin: 0 3px;
   }
   .top-image {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 }
 #qr-container.fullscreen {
