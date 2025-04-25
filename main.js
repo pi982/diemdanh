@@ -1,8 +1,6 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // Check đăng nhập từ localStorage (1 tiếng)
-    const loginTimestamp = localStorage.getItem("loginTimestamp");
-    if (loginTimestamp) {
-        // Nếu đã đăng nhập trong 1 tiếng, ẩn giao diện đăng nhập và hiển thị giao diện chính
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
         document.getElementById("login-container").style.display = "none";
         document.querySelector(".mode-toggle").style.display = "flex";
         document.getElementById("function-container").style.display = "flex";
@@ -39,8 +37,7 @@
         // Demo authentication: chỉ chấp nhận account "admin" với password "123456"
         if (account === "admin" && password === "020902") {
             showModal("Đăng nhập thành công", "success");
-            // Lưu timestamp đăng nhập vào localStorage
-            localStorage.setItem("loginTimestamp", new Date().getTime());
+            localStorage.setItem("isLoggedIn", "true");
 
             document.getElementById("login-container").style.display = "none";
             document.querySelector(".mode-toggle").style.display = "flex";
@@ -294,27 +291,16 @@
     let isScanning = false;
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
-        fps: 10,
-        qrbox: function (viewfinderWidth, viewfinderHeight) {
-            let width, height, size;
-            if (viewfinderWidth > 1500) {
-                width = viewfinderWidth * 0.4;
-                height = viewfinderHeight * 0.8;
-                if (width < 250) width = 250;
-                if (height < 200) height = 200;
-            } else {
-                width = viewfinderWidth * 0.4;
-                height = viewfinderHeight * 0.5;
-                if (width < 250) width = 250;
-                if (height < 200) height = 200;
-            }
-            size = Math.min(width, height);
-            const minSize = Math.max(250, 200);
-            if (size < minSize) {
-                size = minSize;
-            }
-            return { width: size, height: size };
-        },
+      fps: 10,
+      qrbox: (vw, vh) => {
+        const isLarge = vw > 1500;
+        let width = vw * (isLarge ? 0.3 : 0.2);
+        let height = vh * (isLarge ? 0.6 : 0.3);
+        width = width < 250 ? 200 : width;
+        height = height < 200 ? 150 : height;
+        const size = Math.max(Math.min(width, height), 200);
+        return { width: size, height: size };
+      }
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
@@ -591,7 +577,7 @@
         resultsDiv.innerHTML = `
       <div style="text-align:center;">
         <div class="spinner"></div>
-        <p style="margin-top: 10px;font-size: 1rem;">Đang tìm kiếm thiếu nhi...</p>
+        <p style="margin-top: 10px;font-size: 0.9rem;">Đang tìm kiếm thiếu nhi...</p>
       </div>`;
 
         // Hàm xử lý kết quả (chung cho online và offline)
@@ -678,9 +664,9 @@
         <colgroup>
           <col style="width: 18%;">
           <col style="width: 17%;">
-          <col style="width: 36%;">
+          <col style="width: 37%;">
           <col style="width: 19%;">
-          <col style="width: 10%;">
+          <col style="width: 9%;">
         </colgroup>
         <thead>
           <tr>
@@ -715,7 +701,7 @@
             tableHtml += `<button class="pagination-btn" data-page="${currentPage + 1}">Next</button>`;
         }
         tableHtml += `</div>`;
-        tableHtml += `<div style="margin-top:-40px; text-align:center;">
+        tableHtml += `<div style="margin-top:-30px; text-align:center;">
                     <button id="confirm-attendance" class="confirm-attendance-btn">Xác nhận</button>
                   </div>`;
         resultsDiv.innerHTML = tableHtml;
@@ -828,7 +814,7 @@
         resultsDiv.innerHTML = `
       <div style="text-align:center;">
         <div class="spinner"></div>
-        <p style="margin-top: 10px;font-size: 1rem;">Đang tìm kiếm kết quả...</p>
+        <p style="margin-top: 10px;font-size: 0.9rem;">Đang tìm kiếm kết quả...</p>
       </div>`;
         fetch(webAppUrl + "?action=search&q=" + encodeURIComponent(query) + "&mode=report&t=" + new Date().getTime(), {
             cache: "no-store",
@@ -877,10 +863,10 @@
         let tableHtml = `
       <table>
         <colgroup>
-          <col style="width: 15%;">
-          <col style="width: 15%;">
-          <col style="width: 28%;">
-          <col style="width: 18%;">
+          <col style="width: 16%;">
+          <col style="width: 14%;">
+          <col style="width: 29%;">
+          <col style="width: 17%;">
           <col style="width: 8%;">
           <col style="width: 8%;">
           <col style="width: 8%;">
@@ -921,7 +907,7 @@
         }
         tableHtml += `</div>`;
         tableHtml += `<div style="margin-top:-40px; text-align:center;">
-                    <button id="print-report" class="confirm-attendance-btn">In</button>
+                    <button id="print-report" class="confirm-attendance-btn"> In </button>
                   </div>`;
         resultsDiv.innerHTML = tableHtml;
         document.querySelectorAll("#report-pagination .pagination-btn").forEach((btn) => {
