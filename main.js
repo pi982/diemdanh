@@ -91,6 +91,7 @@
             const req = store.add(record);
             req.onsuccess = () => {
                 console.log("Đã lưu điểm danh offline:", record);
+                showModal("Đã lưu điểm danh offline...", "normal");
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
@@ -139,6 +140,7 @@
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
                         console.log("Đồng bộ thành công tất cả bản ghi offline");
+                        showModal("Đồng bộ thành công tất cả bản ghi offline", "normal");
                         clearOfflineAttendanceStore();
                     })
                     .catch(err => {
@@ -159,6 +161,7 @@
             const req = store.clear();
             req.onsuccess = () =>
                 console.log("Đã xoá toàn bộ bản ghi offline từ IndexedDB.");
+                showModal("Đã xoá toàn bộ bản ghi offline", "normal");
             req.onerror = (err) =>
                 console.error("Lỗi xoá bản ghi offline:", err);
         });
@@ -188,6 +191,7 @@
                         store.put(student);
                     });
                     console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
+                    showModal("Đã tải xong dữ liệu", "success");
                 }).catch(err => console.error("Lỗi mở DB:", err));
             })
             .catch(error => console.error("Lỗi fetch data sheet:", error));
@@ -428,7 +432,6 @@
     // HÀM GỬI ĐIỂM DANH QRCODE (legacy)
     // ---------------------
     function submitAttendance(studentId, studentHoly = "", studentName = "") {
-        let successMsg = "Điểm danh thành công";
         if (studentName.trim() !== "") {
             successMsg = "Điểm danh " + studentName;
         }
@@ -772,7 +775,7 @@
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({ records: records })
                         });
-                        showModal("Điểm danh thành công", "success");
+                        showModal("Điểm danh " + selectedIds.length + " thiếu nhi thành công", "success");
                     } else {
                         const batchRecord = {
                             timestamp: Date.now(), // Thêm thuộc tính bắt buộc theo keyPath
@@ -907,7 +910,7 @@
             tableHtml += `<button class="pagination-btn" data-page="${currentReportPage + 1}">Next</button>`;
         }
         tableHtml += `</div>`;
-        tableHtml += `<div style="margin-top:-40px; text-align:center;">
+        tableHtml += `<div style="margin-top:-30px; text-align:center;">
                     <button id="print-report" class="confirm-attendance-btn"> In </button>
                   </div>`;
         resultsDiv.innerHTML = tableHtml;
