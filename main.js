@@ -139,8 +139,8 @@
                 })
                     .then(() => {
                         // Với no-cors, nếu promise được resolve, ta coi request đã được gửi thành công
-                        console.log("Đồng bộ thành công tất cả bản ghi offline");
-                        showModal("Đồng bộ thành công tất cả bản ghi offline", "normal");
+                        console.log("Gửi thành công tất cả bản ghi offline");
+                        showModal("Gửi thành công tất cả bản ghi offline", "success");
                         clearOfflineAttendanceStore();
                     })
                     .catch(err => {
@@ -169,7 +169,7 @@
 
     // Lắng nghe sự kiện khi mạng được khôi phục
     window.addEventListener("online", () => {
-        showModal("Đã kết nối lại, đang đồng bộ dữ liệu điểm danh offline...", "success");
+        showModal("Đang gửi dữ liệu điểm danh offline...", "normal");
         syncCombinedAttendanceRecords();
     });
 
@@ -201,13 +201,6 @@
     if (navigator.onLine) {
         loadDataSheetToIndexedDB();
     }
-
-    /*
-    window.addEventListener("online", () => {
-      showModal("Đã kết nối lại, đang cập nhật dữ liệu học sinh...", "success");
-      loadDataSheetToIndexedDB();
-    })
-    */
 
     function normalizeText(text) {
         if (!text) return "";
