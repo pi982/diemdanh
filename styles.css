@@ -448,7 +448,7 @@ th {
 
 .modal-content {
 	background: #fff;
-	padding: 15px; /* Điều chỉnh padding */
+	padding: 10px; /* Điều chỉnh padding */
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
