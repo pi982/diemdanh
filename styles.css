@@ -459,7 +459,7 @@ th {
 	#modal-message { /* Gộp style */
 		/* Giảm font size */
 		font-size: 1.1rem;
-		margin-bottom: 20px; /* Tăng khoảng cách dưới */
+		margin: 10px; /* Tăng khoảng cách dưới */
 		line-height: 1.6;
 	}
 
@@ -480,14 +480,14 @@ th {
 
 .modal-close {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 2px;
+	right: 2x;
 	/* Tăng kích thước và làm rõ hơn */
 	font-size: 1rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
 	cursor: pointer;
 	line-height: 1;
-	padding: 2px; /* Thêm vùng bấm */
+	padding: 1px; /* Thêm vùng bấm */
 }
 
 	.modal-close:hover {
