@@ -712,7 +712,7 @@ header,
 
     table {
         min-width: 0; /* Cho phép bảng co lại hoàn toàn nếu cần */
-        font-size: 0.55rem; /* Giảm font bảng thêm */
+        font-size: 0.57rem; /* Giảm font bảng thêm */
     }
 
     th, td {
@@ -722,8 +722,8 @@ header,
     /* th:nth-child(3), td:nth-child(3) { display: none; } */
 
     .pagination-btn {
-        font-size: 0.7rem;
-        padding: 5px 8px;
+        font-size: 0.6rem;
+        padding: 4px 7px;
     }
     .pagination-info {
         font-size: 0.6rem;
