@@ -438,7 +438,7 @@ th {
 	visibility: hidden;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 	z-index: 1000;
-	padding: 15px; /* Thêm padding để nội dung không sát cạnh */
+	padding: 10px 5px; /* Thêm padding để nội dung không sát cạnh */
 }
 
 	.modal.show {
@@ -448,7 +448,7 @@ th {
 
 .modal-content {
 	background: #fff;
-	padding: 25px; /* Điều chỉnh padding */
+	padding: 15px; /* Điều chỉnh padding */
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
@@ -633,7 +633,7 @@ header,
 	}
 
 	#status-dropdown {
-		min-width: 100px; 
+		min-width: 130px; 
 		
 	}
 
@@ -670,7 +670,7 @@ header,
 
 	/* Kích thước font trong dropdown và modal */
 	.modal-content {
-		padding: 20px;
+		padding: 10px 5px;
 	}
 
 		.modal-content p,
