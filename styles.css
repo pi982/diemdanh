@@ -411,7 +411,7 @@ th {
 	padding: 8px 16px;
 	border: none;
 	border-radius: 5px;
-	font-size: 1rem; /* Giảm font */
+	font-size: 0.9rem; /* Giảm font */
 	cursor: pointer;
 	display: inline-flex; /* Cho phép spinner */
 	align-items: center;
@@ -481,7 +481,7 @@ th {
 .modal-close {
 	position: absolute;
 	top: 2px;
-	right: 2x;
+	right: 2px;
 	/* Tăng kích thước và làm rõ hơn */
 	font-size: 1rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
