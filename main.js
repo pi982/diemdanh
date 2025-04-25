@@ -1,8 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     // Check đăng nhập từ localStorage (1 tiếng)
     const loginTimestamp = localStorage.getItem("loginTimestamp");
-    const oneHour = 3600000; // 1 hour in milliseconds
-    if (loginTimestamp && (new Date().getTime() - loginTimestamp < oneHour)) {
+    if (loginTimestamp) {
         // Nếu đã đăng nhập trong 1 tiếng, ẩn giao diện đăng nhập và hiển thị giao diện chính
         document.getElementById("login-container").style.display = "none";
         document.querySelector(".mode-toggle").style.display = "flex";
@@ -592,7 +591,7 @@
         resultsDiv.innerHTML = `
       <div style="text-align:center;">
         <div class="spinner"></div>
-        <p style="margin-top: 10px;font-size: 2rem;">Đang tìm kiếm thiếu nhi...</p>
+        <p style="margin-top: 10px;font-size: 1rem;">Đang tìm kiếm thiếu nhi...</p>
       </div>`;
 
         // Hàm xử lý kết quả (chung cho online và offline)
@@ -707,11 +706,11 @@
         });
         tableHtml += `</tbody></table>`;
         const totalPages = Math.ceil(searchData.length / pageSize);
-        tableHtml += `<div id="pagination" style="text-align:right; margin-top:20px;">`;
+        tableHtml += `<div id="pagination" style="text-align:right; margin-top:10px;">`;
         if (currentPage > 1) {
             tableHtml += `<button class="pagination-btn" data-page="${currentPage - 1}">Prev</button>`;
         }
-        tableHtml += `<span> Page ${currentPage} của ${totalPages} </span>`;
+        tableHtml += `<span class="pagination-info"> Page ${currentPage} của ${totalPages} </span>`;
         if (currentPage < totalPages) {
             tableHtml += `<button class="pagination-btn" data-page="${currentPage + 1}">Next</button>`;
         }
@@ -829,7 +828,7 @@
         resultsDiv.innerHTML = `
       <div style="text-align:center;">
         <div class="spinner"></div>
-        <p style="margin-top: 10px;font-size: 2rem;">Đang tìm kiếm kết quả...</p>
+        <p style="margin-top: 10px;font-size: 1rem;">Đang tìm kiếm kết quả...</p>
       </div>`;
         fetch(webAppUrl + "?action=search&q=" + encodeURIComponent(query) + "&mode=report&t=" + new Date().getTime(), {
             cache: "no-store",
@@ -912,11 +911,11 @@
         });
         tableHtml += `</tbody></table>`;
         const totalPages = Math.ceil(reportData.length / reportPageSize);
-        tableHtml += `<div id="report-pagination" style="text-align:right; margin-top:20px;">`;
+        tableHtml += `<div id="report-pagination" style="text-align:right; margin-top:10px;">`;
         if (currentReportPage > 1) {
             tableHtml += `<button class="pagination-btn" data-page="${currentReportPage - 1}">Prev</button>`;
         }
-        tableHtml += `<span> Page ${currentReportPage} của ${totalPages} </span>`;
+        tableHtml += `<span class="pagination-info"> Page ${currentReportPage} của ${totalPages} </span>`;
         if (currentReportPage < totalPages) {
             tableHtml += `<button class="pagination-btn" data-page="${currentReportPage + 1}">Next</button>`;
         }
