@@ -54,28 +54,13 @@ body {
 	border-radius: 50%;
 	overflow: hidden;
 	/* Giảm margin */
-	margin: 25px 0;
+	margin: 30px 0;
 }
 
 	.top-image img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-	}
-
-/* --- Header --- */
-header {
-	width: 100%;
-	text-align: center;
-	margin-bottom: 20px;
-}
-
-	header h2 {
-		/* Giảm kích thước font mặc định */
-		font-size: 2.5rem; /* Tương đương 32px nếu font gốc là 16px */
-		color: var(--heading-color);
-		/* Giảm margin */
-		margin-bottom: 25px;
 	}
 
 /* --- Nút chuyển chế độ --- */
@@ -549,6 +534,7 @@ th {
 	padding: 0;
 	background-color: #000;
 	z-index: 0;
+	border-radius: 0;
 }
 
 .top-image,
@@ -572,23 +558,15 @@ header,
 
 /* --- Giao diện đăng nhập --- */
 .login-container {
-	width: 100%;
+	width: 90%;
 	max-width: 450px; /* Giảm max-width cho form login */
 	padding: 20px;
 	margin: 40px auto; /* Tăng margin top */
 	text-align: center;
-	/* Có thể thêm lại nền và shadow nếu muốn */
-	/* background: var(--card-bg); */
-	/* border-radius: 8px; */
-	/* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+	background: var(--card-bg);
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
-
-	.login-container h2 {
-		/* Giảm font size */
-		font-size: 1.8rem;
-		margin: 20px 0; /* Chỉ margin top/bottom */
-		color: var(--heading-color);
-	}
 
 	.login-container input {
 		width: 100%;
@@ -637,12 +615,7 @@ header,
 		/* Giảm kích thước thêm */
 		width: 100px;
 		height: 100px;
-		margin: 20px 0;
-	}
-
-	header h2 {
-		margin: 15px 0;
-		font-size: 1.6rem; /* Giảm thêm */
+		margin: 35px 0;
 	}
 
 	.mode-toggle,
@@ -655,15 +628,19 @@ header,
 	.toggle-button {
 		/* Điều chỉnh lại font/padding cho hợp lý */
 		font-size: 1rem;
-		padding: 7px 6px;
-		margin: 0 3px;
+		padding: 12px 6px;
+		margin: 5px 3px;
 	}
 
-	#status-dropdown .status-box {
-		/* Giảm padding và font-size */
-		padding: 8px 6px;
-		font: 1rem;
+	#status-dropdown {
+		min-width: 100px; 
+		
 	}
+
+		#status-dropdown .status-box {
+			font-size: 0.9rem; 
+			padding: 6px 10px; 
+		}
 
 	.function-container {
 		flex-direction: column; /* Giữ nguyên */
@@ -683,12 +660,8 @@ header,
 	.login-container button {
 		/* Đảm bảo font đủ lớn để đọc */
 		font-size: 1rem;
-		padding: 5px; /* Giữ padding đủ lớn */
+		padding: 7px; /* Giữ padding đủ lớn */
 		/*min-height: 42px;*/ /* Đảm bảo dễ bấm */
-	}
-
-	.login-container h2 {
-		font-size: 1.5rem; /* Giảm thêm */
 	}
 
 	.student-mesage {
