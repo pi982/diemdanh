@@ -1,7 +1,7 @@
 {
   "short_name": "Điểm Danh",
   "name": "Ứng Dụng Điểm Danh Thiếu Nhi",
-  "start_url": "/index.html",
+  "start_url": "/diemdanh/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#007bff",
