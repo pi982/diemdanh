@@ -812,47 +812,53 @@
         }
         const resultsDiv = document.getElementById("report-results");
         resultsDiv.innerHTML = `
-      <div style="text-align:center;">
-        <div class="spinner"></div>
-        <p style="margin-top: 10px;font-size: 0.9rem;">Đang tìm kiếm kết quả...</p>
-      </div>`;
+          <div style="text-align:center;">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px;font-size: 0.9rem;">Đang tìm kiếm kết quả...</p>
+          </div>`;
+    
+        if (!navigator.onLine) {
+            // Nếu muốn có trải nghiệm offline cho report, bạn có thể xử lý riêng ở đây.
+            resultsDiv.innerHTML = `<p style="color: var(--error-color);">Không có kết nối, vui lòng kiểm tra lại!</p>`;
+            return;
+        }
+    
         fetch(webAppUrl + "?action=search&q=" + encodeURIComponent(query) + "&mode=report&t=" + new Date().getTime(), {
             cache: "no-store",
         })
-            .then((response) => {
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.indexOf("application/json") !== -1)
-                    return response.json();
-                else {
-                    return response.text().then((text) => {
-                        try {
-                            return JSON.parse(text);
-                        } catch (e) {
-                            throw new Error("Không đúng định dạng JSON: " + text);
-                        }
-                    });
-                }
-            })
-            .then((data) => {
-                console.log("Response JSON:", data);
-                if (data.error) {
-                    resultsDiv.innerHTML = `<p style="color: var(--error-color);">${data.error}</p>`;
-                    return;
-                }
-                if (!Array.isArray(data) || data.length === 0) {
-                    resultsDiv.innerHTML = `<p class="student-mesage">Không tìm thấy, vui lòng kiểm tra lại.</p>`;
-                    return;
-                }
-
-                // Nếu dữ liệu trả về chứa thuộc tính searchError từ server, tức báo lỗi sắp xếp quá nhiều kết quả...         
-                reportData = data;
-                currentReportPage = 1;
-                renderReportTable();
-            })
-            .catch((error) => {
-                console.error("Lỗi tìm kiếm:", error);
-                resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu.</p>`;
-            });
+        .then((response) => {
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1)
+                return response.json();
+            else {
+                return response.text().then((text) => {
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        throw new Error("Không đúng định dạng JSON: " + text);
+                    }
+                });
+            }
+        })
+        .then((data) => {
+            console.log("Response JSON:", data);
+            if (data.error) {
+                resultsDiv.innerHTML = `<p style="color: var(--error-color);">${data.error}</p>`;
+                return;
+            }
+            if (!Array.isArray(data) || data.length === 0) {
+                resultsDiv.innerHTML = `<p class="student-mesage">Không tìm thấy, vui lòng kiểm tra lại.</p>`;
+                return;
+            }
+            // Xử lý kết quả report: cập nhật biến toàn cục hoặc render giao diện bảng báo cáo
+            reportData = data;
+            currentReportPage = 1;
+            renderReportTable();
+        })
+        .catch((error) => {
+            console.error("Lỗi tìm kiếm:", error);
+            resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu.</p>`;
+        });
     });
     function renderReportTable() {
         console.log("Report data:", reportData);
