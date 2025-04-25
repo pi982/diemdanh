@@ -347,7 +347,6 @@ th,
 td {
     word-wrap: break-word;
     border: 1px solid #ddd;
-    padding: 6px 8px; /* Giảm padding */
     text-align: center;
 }
 
@@ -715,9 +714,9 @@ header,
         font-size: 0.57rem; /* Giảm font bảng thêm */
     }
 
-    th, td {
+    /*th, td {
         padding: 4px 6px; /* Giảm padding ô */
-    }
+    }*/
     /* Có thể ẩn một số cột không quan trọng trên mobile nếu cần */
     /* th:nth-child(3), td:nth-child(3) { display: none; } */
 
