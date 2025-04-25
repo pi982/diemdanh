@@ -448,12 +448,10 @@ th {
 
 .modal-content {
 	background: #fff;
-	padding: 10px; /* Điều chỉnh padding */
+	padding: 10px 5px; /* Điều chỉnh padding */
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
-	max-width: 500px; /* Giới hạn chiều rộng tối đa */
-	width: 100%; /* Cho phép co lại trên mobile */
 	box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
@@ -473,6 +471,10 @@ th {
 
 	.modal-content.error {
 		color: var(--error-color);
+		/* border-left: 5px solid var(--error-color); */
+	}
+	.modal-content.normal {
+		color: var(--text-color);
 		/* border-left: 5px solid var(--error-color); */
 	}
 
