@@ -91,7 +91,7 @@
             const req = store.add(record);
             req.onsuccess = () => {
                 console.log("Đã lưu điểm danh offline:", record);
-                showModal("Đã lưu điểm danh offline...", "normal");
+                showModal("Đã lưu điểm danh offline", "normal");
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
@@ -440,8 +440,8 @@
                 recordType: "single",
                 timestamp: Date.now()
             };
-            saveAttendanceRecord(record);
             showModal("Điểm danh offline " + studentName, "success");
+            saveAttendanceRecord(record);
             return;
         }
 
@@ -775,8 +775,9 @@
                             recordType: "batch",   // Đánh dấu đây là bản ghi dạng batch
                             records: records       // Đây là mảng các bản ghi đã tạo
                         };
+                        showModal("Đã lưu điểm danh " + selectedIds.length + " thiếu nhi offline", "normal");
                         saveAttendanceRecord(batchRecord);
-                        showModal("Đã lưu điểm danh offline. Dữ liệu sẽ được đồng bộ khi có mạng!", "success");
+                        
                     }
 
 
