@@ -676,10 +676,10 @@
         let tableHtml = `
       <table>
         <colgroup>
-          <col style="width: 20%;">
-          <col style="width: 20%;">
-          <col style="width: 33%;">
+          <col style="width: 18%;">
           <col style="width: 17%;">
+          <col style="width: 36%;">
+          <col style="width: 19%;">
           <col style="width: 10%;">
         </colgroup>
         <thead>
