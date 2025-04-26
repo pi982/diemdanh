@@ -1,4 +1,13 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("loginTimestamp")) {
+    // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
+    document.getElementById("login-container").style.display = "none";
+    document.querySelector(".mode-toggle").style.display = "flex";
+    document.getElementById("function-container").style.display = "flex";
+    } else {
+    // Người dùng chưa đăng nhập, hiển thị form đăng nhập
+    document.getElementById("login-container").style.display = "block";
+    }
     // Định nghĩa hàm showModal toàn cục
     window.showModal = function (message, type) {
         const modal = document.getElementById("modal");
