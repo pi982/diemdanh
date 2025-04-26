@@ -120,6 +120,17 @@
             req.onsuccess = () => {
                 console.log("Đã lưu điểm danh offline:", record);
                 showModal("Đã lưu điểm danh offline", "normal");
+                if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                  navigator.serviceWorker.ready.then(function(registration) {
+                    registration.sync.register('attendance-sync')
+                      .then(function() {
+                        console.log('Đã đăng ký background sync với tag "attendance-sync".');
+                      })
+                      .catch(function(err) {
+                        console.error('Lỗi khi đăng ký background sync:', err);
+                      });
+                  });
+                }
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
