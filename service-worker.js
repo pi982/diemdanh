@@ -1,4 +1,4 @@
-const CACHE_NAME = 'attendance-cache-v5';
+const CACHE_NAME = 'attendance-cache-v6';
 const urlsToCache = [
   '/diemdanh/',
   '/diemdanh/index.html',
@@ -65,16 +65,3 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Trong Service Worker:
-self.addEventListener('sync', event => {
-  if (event.tag === 'attendance-sync') {
-    event.waitUntil(
-      syncOfflineData().then(() => {
-        self.registration.showNotification("Đồng bộ thành công", {
-          body: "Tất cả các bản ghi offline đã được đồng bộ lên server.",
-          //icon: "/diemdanh/images/icon-192.png"
-        });
-      })
-    );
-  }
-});
