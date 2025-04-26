@@ -445,6 +445,7 @@ th {
 	text-align: center;
 	position: relative;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+	width: 80%;
 	padding: 50px 10px;
 }
 
@@ -453,6 +454,8 @@ th {
 		/* Giảm font size */
 		font-size: 1.1rem;
 		line-height: 1.6;
+		white-space: normal; /* Cho phép tự động xuống dòng */
+		overflow-wrap: break-word;
 	}
 
 	.modal-content.success {
@@ -465,6 +468,7 @@ th {
 		color: var(--error-color);
 		/* border-left: 5px solid var(--error-color); */
 	}
+
 	.modal-content.normal {
 		color: var(--text-color);
 		/* border-left: 5px solid var(--error-color); */
@@ -559,7 +563,7 @@ header,
 	text-align: center;
 	background: var(--card-bg);
 	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 	.login-container input {
@@ -627,13 +631,12 @@ header,
 	}
 
 	#status-dropdown {
-		min-width: 145px; 
-		
+		min-width: 145px;
 	}
 
 		#status-dropdown .status-box {
-			font-size: 0.9rem; 
-			padding: 6px 10px; 
+			font-size: 0.9rem;
+			padding: 6px 10px;
 		}
 
 	.function-container {
