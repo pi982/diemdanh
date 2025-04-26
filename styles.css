@@ -441,7 +441,7 @@ th {
 
 .modal-content {
 	background: #fff;
-	padding: 25px 5px; /* Điều chỉnh padding */
+	padding: 10px 5px; /* Điều chỉnh padding */
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
@@ -453,7 +453,6 @@ th {
 	#modal-message { /* Gộp style */
 		/* Giảm font size */
 		font-size: 1.1rem;
-		margin-bottom: 20px; /* Tăng khoảng cách dưới */
 		line-height: 1.6;
 	}
 
@@ -475,13 +474,13 @@ th {
 .modal-close {
 	position: absolute;
 	top: 2px;
-	right: 2px;
+	right: 4px;
 	/* Tăng kích thước và làm rõ hơn */
 	font-size: 1.1rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
 	cursor: pointer;
 	line-height: 1;
-	padding: 2px; /* Thêm vùng bấm */
+	padding: 3px; /* Thêm vùng bấm */
 }
 
 	.modal-close:hover {
@@ -629,7 +628,7 @@ header,
 	}
 
 	#status-dropdown {
-		min-width: 130px; 
+		min-width: 145px; 
 		
 	}
 
