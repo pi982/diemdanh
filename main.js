@@ -1,4 +1,18 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+    if ("Notification" in window) {
+        if (Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+        console.log("Quyền thông báo:", permission);
+        if (permission === "granted") {
+          new Notification("Thông báo đã được kích hoạt!", {
+            body: "Bạn sẽ nhận được thông báo khi có sự kiện quan trọng.",
+          });
+        }
+        });
+        } else if (Notification.permission === "denied") {
+        console.warn("Người dùng đã từ chối quyền thông báo.");
+        }
+    }
     if (localStorage.getItem("loginTimestamp")) {
     // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
     document.getElementById("login-container").style.display = "none";
