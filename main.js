@@ -10,17 +10,30 @@
     }
     // Định nghĩa hàm showModal toàn cục
     window.showModal = function (message, type) {
-        const modal = document.getElementById("modal");
-        const modalMessage = document.getElementById("modal-message");
-        const modalContent = modal.querySelector(".modal-content");
-        modalMessage.textContent = message;
-        modalContent.classList.remove("success", "error");
-        if (type === "success") modalContent.classList.add("success");
-        else if (type === "error") modalContent.classList.add("error");
-        modal.classList.add("show");
-        setTimeout(() => {
-            modal.classList.remove("show");
-        }, 1000);
+      const modal = document.getElementById("modal");
+      const modalMessage = document.getElementById("modal-message");
+      const modalContent = modal.querySelector(".modal-content");
+    
+      // Cập nhật nội dung thông báo
+      modalMessage.textContent = message;
+    
+      // Xóa tất cả các class kiểu cũ
+      modalContent.classList.remove("success", "error", "normal");
+    
+      // Thêm class dựa theo loại kiểu
+      if (type === "success") {
+        modalContent.classList.add("success");
+      } else if (type === "error") {
+        modalContent.classList.add("error");
+      } else if (type === "normal") {
+        modalContent.classList.add("normal");
+      }
+    
+      // Hiển thị modal
+      modal.classList.add("show");
+      setTimeout(() => {
+        modal.classList.remove("show");
+      }, 2000);
     };
 
     // ---------------------
