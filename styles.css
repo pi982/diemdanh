@@ -431,7 +431,7 @@ th {
 	visibility: hidden;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 	z-index: 1000;
-	padding: 15px; /* Thêm padding để nội dung không sát cạnh */
+	padding: 10px 2px; /* Thêm padding để nội dung không sát cạnh */
 }
 
 	.modal.show {
@@ -441,7 +441,7 @@ th {
 
 .modal-content {
 	background: #fff;
-	padding: 10px 5px; /* Điều chỉnh padding */
+	padding: 10px 2px; /* Điều chỉnh padding */
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
