@@ -445,7 +445,7 @@ th {
 	text-align: center;
 	position: relative;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-	padding: 25px 5px;
+	padding: 25px 4px;
 }
 
 	.modal-content p,
@@ -664,7 +664,7 @@ header,
 
 	/* Kích thước font trong dropdown và modal */
 	.modal-content {
-		padding: 10px 5px;
+		padding: 20px 2px;
 	}
 
 		.modal-content p,
