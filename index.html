@@ -30,7 +30,9 @@
         <form id="login-form">
             <input type="text" id="login-account" placeholder="Tài khoản" required />
             <input type="password" id="login-password" placeholder="Mật khẩu" required />
-            <button type="submit">Đăng nhập</button>
+            <button type="submit" id="login-submit">Đăng nhập</button>
+            <!-- Spinner hiển thị khi đăng nhập đang xử lý -->
+            <div id="login-spinner" class="spinner" style="display: none;"></div>
         </form>
     </div>
 
