@@ -208,12 +208,6 @@
         });
     }
 
-    // Lắng nghe sự kiện khi mạng được khôi phục
-    window.addEventListener("online", () => {
-        showModal("Đang gửi dữ liệu điểm danh offline...", "normal");
-        syncCombinedAttendanceRecords();
-    });
-
     function loadDataSheetToIndexedDB() {
         const fetchUrl = webAppUrl + "?action=fetchDataSheet";
         fetch(fetchUrl)
@@ -239,8 +233,18 @@
     }
 
 
+    async function runOnlineTasks() {
+      try {
+        await loadDataSheetToIndexedDB();
+        await syncCombinedAttendanceRecords();
+        console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
+      } catch (error) {
+        console.error("Có lỗi khi chạy các hàm online:", error);
+      }
+    }
+    
     if (navigator.onLine) {
-        loadDataSheetToIndexedDB();
+      runOnlineTasks();
     }
 
     function normalizeText(text) {
