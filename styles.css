@@ -410,7 +410,7 @@ th {
 	padding: 8px 16px;
 	border: none;
 	border-radius: 5px;
-	font-size: 0.9rem; /* Giảm font */
+	font-size: 1rem; /* Giảm font */
 	cursor: pointer;
 	display: inline-flex; /* Cho phép spinner */
 	align-items: center;
@@ -437,7 +437,7 @@ th {
 	visibility: hidden;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 	z-index: 1000;
-	padding: 10px 5px; /* Thêm padding để nội dung không sát cạnh */
+	padding: 15px; /* Thêm padding để nội dung không sát cạnh */
 }
 
 	.modal.show {
@@ -447,10 +447,12 @@ th {
 
 .modal-content {
 	background: #fff;
-	padding: 20px 5px; /* Điều chỉnh padding */
+	padding: 25px; /* Điều chỉnh padding */
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
+	max-width: 500px; /* Giới hạn chiều rộng tối đa */
+	width: 100%; /* Cho phép co lại trên mobile */
 	box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
@@ -458,7 +460,7 @@ th {
 	#modal-message { /* Gộp style */
 		/* Giảm font size */
 		font-size: 1.1rem;
-		margin: 10px; /* Tăng khoảng cách dưới */
+		margin-bottom: 20px; /* Tăng khoảng cách dưới */
 		line-height: 1.6;
 	}
 
@@ -479,14 +481,14 @@ th {
 
 .modal-close {
 	position: absolute;
-	top: 2px;
-	right: 4px;
+	top: 10px;
+	right: 10px;
 	/* Tăng kích thước và làm rõ hơn */
-	font-size: 1rem; /* Lớn hơn */
+	font-size: 1.5rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
 	cursor: pointer;
 	line-height: 1;
-	padding: 2px; /* Thêm vùng bấm */
+	padding: 5px; /* Thêm vùng bấm */
 }
 
 	.modal-close:hover {
@@ -634,9 +636,10 @@ header,
 	}
 
 	#status-dropdown {
-		min-width: 140px; 
+		min-width: 100px; 
 		
 	}
+
 		#status-dropdown .status-box {
 			font-size: 0.9rem; 
 			padding: 6px 10px; 
@@ -670,7 +673,7 @@ header,
 
 	/* Kích thước font trong dropdown và modal */
 	.modal-content {
-		padding: 15px 5px;
+		padding: 10px 5px;
 	}
 
 		.modal-content p,
