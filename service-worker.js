@@ -65,3 +65,16 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Trong Service Worker:
+self.addEventListener('sync', event => {
+  if (event.tag === 'attendance-sync') {
+    event.waitUntil(
+      syncOfflineData().then(() => {
+        self.registration.showNotification("Đồng bộ thành công", {
+          body: "Tất cả các bản ghi offline đã được đồng bộ lên server.",
+          //icon: "/diemdanh/images/icon-192.png"
+        });
+      })
+    );
+  }
+});
