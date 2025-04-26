@@ -1,10 +1,4 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "true") {
-        document.getElementById("login-container").style.display = "none";
-        document.querySelector(".mode-toggle").style.display = "flex";
-        document.getElementById("function-container").style.display = "flex";
-    }
     // Định nghĩa hàm showModal toàn cục
     window.showModal = function (message, type) {
         const modal = document.getElementById("modal");
@@ -23,30 +17,55 @@
     // ---------------------
     // Login Handling
     // ---------------------
-    const loginForm = document.getElementById("login-form");
-    loginForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const account = document.getElementById("login-account").value.trim();
-        const password = document.getElementById("login-password").value.trim();
-
-        if (account === "" || password === "") {
-            alert("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
-            return;
-        }
-
-        // Demo authentication: chỉ chấp nhận account "admin" với password "123456"
-        if (account === "admin" && password === "020902") {
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const account = document.getElementById("login-account").value.trim();
+      const password = document.getElementById("login-password").value.trim();
+    
+      if (account === "" || password === "") {
+        alert("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
+        return;
+      }
+    
+      // Lấy các thành phần spinner và nút đăng nhập
+      const loginButton = document.getElementById("login-submit");
+      const spinner = document.getElementById("login-spinner");
+    
+      // Khi bắt đầu đăng nhập, disable nút và hiển thị spinner
+      loginButton.disabled = true;
+      spinner.style.display = "inline-block";
+    
+      // Gửi thông tin đăng nhập tới server qua POST
+      fetch(webAppUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "action=login&account=" + encodeURIComponent(account) + "&password=" + encodeURIComponent(password)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            // Nếu đăng nhập thành công, hiển thị thông báo và chuyển giao diện
             showModal("Đăng nhập thành công", "success");
-            localStorage.setItem("isLoggedIn", "true");
-
+            localStorage.setItem("loginTimestamp", new Date().getTime());
             document.getElementById("login-container").style.display = "none";
             document.querySelector(".mode-toggle").style.display = "flex";
             document.getElementById("function-container").style.display = "flex";
-
-        } else {
-            showModal("Sai tài khoản hoặc mật khẩu", "error");
-        }
+          } else {
+            // Nếu đăng nhập thất bại, hiển thị lỗi
+            showModal(data.message || "Sai tài khoản hoặc mật khẩu", "error");
+          }
+        })
+        .catch(err => {
+          console.error("Lỗi kết nối đến server", err);
+          showModal("Lỗi kết nối server!", "error");
+        })
+        .finally(() => {
+          // Ẩn spinner và bật lại nút đăng nhập
+          spinner.style.display = "none";
+          loginButton.disabled = false;
+        });
     });
+     
     // Các biến và khởi tạo
     const webAppUrl =
         "https://script.google.com/macros/s/AKfycbxyZkkL3uRTcLVUbcxytOKiKfWOAow_hKuwHCW6FcHVSAXTv38ZnYfnW4sCXscdJ2oN/exec";
