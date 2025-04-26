@@ -481,14 +481,14 @@ th {
 
 .modal-close {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 2px;
+	right: 2px;
 	/* Tăng kích thước và làm rõ hơn */
-	font-size: 1.5rem; /* Lớn hơn */
+	font-size: 1.1rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
 	cursor: pointer;
 	line-height: 1;
-	padding: 5px; /* Thêm vùng bấm */
+	padding: 2px; /* Thêm vùng bấm */
 }
 
 	.modal-close:hover {
@@ -636,7 +636,7 @@ header,
 	}
 
 	#status-dropdown {
-		min-width: 100px; 
+		min-width: 130px; 
 		
 	}
 
