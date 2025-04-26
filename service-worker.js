@@ -4,7 +4,8 @@ const urlsToCache = [
   '/diemdanh/index.html',
   '/diemdanh/styles.css',
   '/diemdanh/main.js',
-  '/diemdanh/manifest.json'
+  '/diemdanh/manifest.json',
+  '/diemdanh/images/icon.png'
 ];
 
 self.addEventListener('install', event => {
