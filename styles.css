@@ -481,13 +481,13 @@ th {
 .modal-close {
 	position: absolute;
 	top: 2px;
-	right: 2px;
+	right: 4px;
 	/* Tăng kích thước và làm rõ hơn */
 	font-size: 1rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
 	cursor: pointer;
 	line-height: 1;
-	padding: 1px; /* Thêm vùng bấm */
+	padding: 2px; /* Thêm vùng bấm */
 }
 
 	.modal-close:hover {
