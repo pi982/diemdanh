@@ -247,6 +247,17 @@
       runOnlineTasks();
     }
 
+    window.addEventListener("online", async () => {
+      showModal("Đang gửi dữ liệu điểm danh offline và tải dữ liệu...", "normal");
+      try {
+        await loadDataSheetToIndexedDB();
+        await syncCombinedAttendanceRecords();
+        console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
+      } catch (error) {
+        console.error("Có lỗi khi chạy các hàm online:", error);
+      }
+    });
+
     function normalizeText(text) {
         if (!text) return "";
         return text.toString()
