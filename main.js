@@ -119,7 +119,6 @@
             const req = store.add(record);
             req.onsuccess = () => {
                 console.log("Đã lưu điểm danh offline:", record);
-                showModal("Đã lưu điểm danh offline", "normal");
                 if ('serviceWorker' in navigator && 'SyncManager' in window) {
                   navigator.serviceWorker.ready.then(function(registration) {
                     registration.sync.register('attendance-sync')
@@ -134,6 +133,7 @@
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
+                showModal("Lỗi lưu điểm danh offline", "error");
             };
         }).catch(err => console.error(err));
     }
