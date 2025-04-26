@@ -1,18 +1,4 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    if ("Notification" in window) {
-        if (Notification.permission === "default") {
-        Notification.requestPermission().then(permission => {
-        console.log("Quyền thông báo:", permission);
-        if (permission === "granted") {
-          new Notification("Thông báo đã được kích hoạt!", {
-            body: "Bạn sẽ nhận được thông báo khi có sự kiện quan trọng.",
-          });
-        }
-        });
-        } else if (Notification.permission === "denied") {
-        console.warn("Người dùng đã từ chối quyền thông báo.");
-        }
-    }
     if (localStorage.getItem("loginTimestamp")) {
     // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
     document.getElementById("login-container").style.display = "none";
@@ -133,18 +119,6 @@
             const req = store.add(record);
             req.onsuccess = () => {
                 console.log("Đã lưu điểm danh offline:", record);
-                // Sau khi lưu thành công, đăng ký Background Sync
-                if ('serviceWorker' in navigator && 'SyncManager' in window) {
-                navigator.serviceWorker.ready.then(function(registration) {
-                  registration.sync.register('attendance-sync')
-                    .then(function() {
-                      console.log('Đã đăng ký background sync với tag "attendance-sync".');
-                    })
-                    .catch(function(err) {
-                      console.error('Lỗi khi đăng ký background sync:', err);
-                    });
-                });
-                }
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
@@ -345,11 +319,11 @@
       fps: 10,
       qrbox: (vw, vh) => {
         const isLarge = vw > 1500;
-        let width = vw * (isLarge ? 0.3 : 0.2);
-        let height = vh * (isLarge ? 0.6 : 0.3);
-        width = width < 250 ? 200 : width;
-        height = height < 200 ? 150 : height;
-        const size = Math.max(Math.min(width, height), 200);
+        let width = vw * (isLarge ? 0.2 : 0.1);
+        let height = vh * (isLarge ? 0.5 : 0.2);
+        width = width < 250 ? 180 : width;
+        height = height < 200 ? 130 : height;
+        const size = Math.max(Math.min(width, height), 180);
         return { width: size, height: size };
       }
     };
