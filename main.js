@@ -236,6 +236,7 @@
                 showModal("Đã xoá toàn bộ bản ghi offline", "normal");
             req.onerror = (err) =>
                 console.error("Lỗi xoá bản ghi offline:", err);
+                showModal("Lỗi xoá bản ghi offline", "error");
         });
     }
 
@@ -264,7 +265,7 @@
                             store.put(student);
                         });
                         console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
-                        showModal("Đã tải xong dữ liệu", "success");
+                        showModal("Đã tải xong dữ liệu cho tìm kiếm offline", "success");
                     };
                     clearRequest.onerror = (err) => {
                         console.error("Lỗi khi xoá dữ liệu cũ:", err);
@@ -275,29 +276,13 @@
     }
 
 
-    async function runOnlineTasks() {
-      try {
-        await loadDataSheetToIndexedDB();
-        await syncCombinedAttendanceRecords();
-        console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
-      } catch (error) {
-        console.error("Có lỗi khi chạy các hàm online:", error);
-      }
-    }
-    
     if (navigator.onLine) {
-      runOnlineTasks();
+        loadDataSheetToIndexedDB();
+        syncCombinedAttendanceRecords();
     }
 
-    window.addEventListener("online", async () => {
-      showModal("Đang gửi dữ liệu điểm danh offline và tải dữ liệu...", "normal");
-      try {
-        await loadDataSheetToIndexedDB();
-        await syncCombinedAttendanceRecords();
-        console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
-      } catch (error) {
-        console.error("Có lỗi khi chạy các hàm online:", error);
-      }
+    window.addEventListener("online", () => {
+        syncCombinedAttendanceRecords();
     });
 
     function normalizeText(text) {
