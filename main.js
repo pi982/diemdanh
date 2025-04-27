@@ -8,8 +8,32 @@
     // Người dùng chưa đăng nhập, hiển thị form đăng nhập
     document.getElementById("login-container").style.display = "block";
     }
-    // Định nghĩa hàm showModal toàn cục
-    window.showModal = function (message, type) {
+
+    // Khai báo hàng đợi thông báo và biến kiểm tra trạng thái modal
+    const notificationQueue = [];
+    let isModalActive = false;
+    
+    // Hàm toàn cục showModal chỉ thêm thông báo vào hàng đợi
+    window.showModal = function(message, type) {
+      notificationQueue.push({ message, type });
+      // Nếu không có modal nào đang hiển thị thì kích hoạt hiển thị thông báo tiếp theo
+      if (!isModalActive) {
+        processQueue();
+      }
+    };
+    
+    function processQueue() {
+      // Nếu hàng đợi rỗng, kết thúc
+      if (!notificationQueue.length) {
+        isModalActive = false;
+        return;
+      }
+    
+      isModalActive = true;
+      // Lấy thông báo đầu tiên từ hàng đợi
+      const { message, type } = notificationQueue.shift();
+    
+      // Các phần tử modal trong HTML
       const modal = document.getElementById("modal");
       const modalMessage = document.getElementById("modal-message");
       const modalContent = modal.querySelector(".modal-content");
@@ -17,24 +41,31 @@
       // Cập nhật nội dung thông báo
       modalMessage.textContent = message;
     
-      // Xóa tất cả các class kiểu cũ
+      // Xóa mọi class kiểu cũ
       modalContent.classList.remove("success", "error", "normal");
     
-      // Thêm class dựa theo loại kiểu
+      // Thêm class dựa theo loại thông báo
       if (type === "success") {
         modalContent.classList.add("success");
       } else if (type === "error") {
         modalContent.classList.add("error");
-      } else if (type === "normal") {
+      } else {
         modalContent.classList.add("normal");
       }
     
       // Hiển thị modal
       modal.classList.add("show");
+    
+      // Sau khi thông báo được hiển thị trong 2 giây, ẩn và xử lý thông báo kế tiếp
       setTimeout(() => {
         modal.classList.remove("show");
+        
+        // Đợi một chút (ví dụ 500ms) trước khi hiển thị thông báo tiếp theo để tránh hiện tượng quá chồng
+        setTimeout(() => {
+          processQueue();
+        }, 500);
       }, 2000);
-    };
+    }
 
     // ---------------------
     // Login Handling
