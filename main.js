@@ -64,7 +64,7 @@
         setTimeout(() => {
           processQueue();
         }, 500);
-      }, 2000);
+      }, 3000);
     }
 
     // ---------------------
@@ -166,7 +166,6 @@
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
-                showModal("Lỗi lưu điểm danh offline", "error");
             };
         }).catch(err => console.error(err));
     }
@@ -236,7 +235,6 @@
                 showModal("Đã xoá toàn bộ bản ghi offline", "normal");
             req.onerror = (err) =>
                 console.error("Lỗi xoá bản ghi offline:", err);
-                showModal("Lỗi xoá bản ghi offline", "error");
         });
     }
 
@@ -477,7 +475,6 @@
                 })
                 .catch((error) => {
                     console.error("Lỗi khi dừng camera:", error);
-                    showModal("Lỗi khi chuyển sang chế độ QR!", "error");
                 });
         } else {
             setTimeout(() => {
@@ -499,7 +496,6 @@
                 })
                 .catch((error) => {
                     console.error("Lỗi khi tắt camera:", error);
-                    showModal("Lỗi khi chuyển sang chế độ Tìm kiếm!", "error");
                 });
         }
     }
@@ -635,7 +631,6 @@
                 })
                 .catch((error) => {
                     console.error("Lỗi khi tắt camera:", error);
-                    showModal("Lỗi khi chuyển sang chế độ Báo cáo!", "error");
                 });
         }
     });
@@ -1088,7 +1083,7 @@
 
             @media print {
               body{
-                margin-left: 20px;
+                margin-left: 10px;
               }
               thead { display: table-header-group; }
               tr { page-break-inside: avoid; }
