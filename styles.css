@@ -111,7 +111,7 @@ body {
 	opacity: 0;
 	visibility: hidden; /* Thêm visibility để ẩn hoàn toàn */
 	transform: translateY(-10px);
-	transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+	transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s ease;
 	position: absolute;
 	background-color: var(--card-bg); /* Đổi thành màu nền thẻ */
 	border: 1px solid var(--neutral-color); /* Thêm border nhẹ */
@@ -163,7 +163,7 @@ body {
 	}
 
 	#status-dropdown .status-box:hover {
-		background-color: var(--bg-color); /* Màu nền khi hover */
+		background-color: var(--primary-color); /* Màu nền khi hover */
 		color: var(--text-color);
 	}
 
@@ -667,6 +667,7 @@ header,
 
 	/* Kích thước font trong dropdown và modal */
 	.modal-content {
+		width: 40%;
 		padding: 50px 10px;
 	}
 
