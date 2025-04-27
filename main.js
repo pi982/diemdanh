@@ -1058,7 +1058,7 @@
         let html = `
       <html>
         <head>
-          <title>Báo cáo điểm danh</title>
+          <title>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</title>
           <style>
             body {
               font-family: Arial, sans-serif;
@@ -1084,7 +1084,7 @@
               table-layout: fixed;
             }
             table, th, td {
-              font-size: 14px; /* Điều chỉnh giá trị này theo ý bạn */
+              font-size: 13px; /* Điều chỉnh giá trị này theo ý bạn */
               border: 1px solid black;
               word-wrap: break-word;       /* Hoặc overflow-wrap: break-word; */
               white-space: normal;
