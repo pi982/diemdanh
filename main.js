@@ -239,6 +239,7 @@
         });
     }
 
+     //
     function loadDataSheetToIndexedDB() {
         const fetchUrl = webAppUrl + "?action=fetchDataSheet";
         fetch(fetchUrl)
@@ -252,12 +253,22 @@
                 openAttendanceDB().then(db => {
                     const transaction = db.transaction("students", "readwrite");
                     const store = transaction.objectStore("students");
-                    data.forEach(student => {
-                        // Sử dụng student.id làm key trong IndexedDB (keyPath đã được khai báo khi tạo store)
-                        store.put(student);
-                    });
-                    console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
-                    showModal("Đã tải xong dữ liệu", "success");
+    
+                    // Xóa toàn bộ dữ liệu cũ trước
+                    const clearRequest = store.clear();
+                    clearRequest.onsuccess = () => {
+                        console.log("Đã xóa dữ liệu cũ trong IndexedDB.");
+                        // Sau khi xóa xong, thêm dữ liệu mới
+                        data.forEach(student => {
+                            // Dùng student.id làm key theo keyPath đã khai báo
+                            store.put(student);
+                        });
+                        console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
+                        showModal("Đã tải xong dữ liệu", "success");
+                    };
+                    clearRequest.onerror = (err) => {
+                        console.error("Lỗi khi xoá dữ liệu cũ:", err);
+                    };
                 }).catch(err => console.error("Lỗi mở DB:", err));
             })
             .catch(error => console.error("Lỗi fetch data sheet:", error));
