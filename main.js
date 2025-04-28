@@ -150,7 +150,10 @@
                 }
                 // Lưu danh sách học sinh cho offline search
                 if (!db.objectStoreNames.contains("students")) {
-                    db.createObjectStore("students", { keyPath: "id" });
+                    let store = db.createObjectStore("students", { keyPath: "id" });
+                    // Tạo index cho trường rowOrder để dùng khi sắp xếp trực tiếp qua IndexedDB nếu cần
+                    store.createIndex("orderIndex", "rowOrder", { unique: false });
+                  }
                 }
             };
         });
