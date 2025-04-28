@@ -293,30 +293,38 @@
     }
 
     function offlineSearch(query) {
-        return new Promise((resolve, reject) => {
-            openAttendanceDB().then(db => {
-                const transaction = db.transaction("students", "readonly");
-                const store = transaction.objectStore("students");
-                const req = store.getAll();
-                req.onsuccess = () => {
-                    console.log("offlineSearch: Đã lấy dữ liệu từ IndexedDB.");
-                    const students = req.result;
-                    console.log("offlineSearch: students =", students);
-                    const normalizedQuery = normalizeText(query);
-                    const results = students.filter(student => {
-                        return normalizeText(student.id).includes(normalizedQuery) ||
-                            normalizeText(student.fullName).includes(normalizedQuery) ||
-                            normalizeText(student.holyName).includes(normalizedQuery) ||
-                            normalizeText(student.birthDate).includes(normalizedQuery);
-                    });
-                    console.log("offlineSearch: results =", results);
-                    resolve(results);
-                };
-                req.onerror = () => {
-                    reject("Lỗi truy xuất dữ liệu offline từ IndexedDB.");
-                };
-            }).catch(err => reject(err));
-        });
+      return new Promise((resolve, reject) => {
+        openAttendanceDB().then(db => {
+          const transaction = db.transaction("students", "readonly");
+          const store = transaction.objectStore("students");
+          // Lấy tất cả dữ liệu từ object store
+          const req = store.getAll();
+          req.onsuccess = () => {
+            console.log("offlineSearch: Đã lấy dữ liệu từ IndexedDB.");
+            const students = req.result;
+            console.log("offlineSearch: students =", students);
+      
+            const normalizedQuery = normalizeText(query);
+            // Lọc các học sinh phù hợp với truy vấn
+            let results = students.filter(student => {
+              return normalizeText(student.id).includes(normalizedQuery) ||
+                     normalizeText(student.fullName).includes(normalizedQuery) ||
+                     normalizeText(student.holyName).includes(normalizedQuery) ||
+                     normalizeText(student.birthDate).includes(normalizedQuery);
+            });
+      
+            // Sắp xếp các kết quả theo thứ tự của trường rowOrder
+            results.sort((a, b) => a.rowOrder - b.rowOrder);
+      
+            console.log("offlineSearch: results =", results);
+            resolve(results);
+          };
+      
+          req.onerror = () => {
+            reject("Lỗi truy xuất dữ liệu offline từ IndexedDB.");
+          };
+        }).catch(err => reject(err));
+      });
     }
 
     // ---------------------
