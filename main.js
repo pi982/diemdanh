@@ -1,124 +1,124 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("loginTimestamp")) {
-    // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
-    document.getElementById("login-container").style.display = "none";
-    document.querySelector(".mode-toggle").style.display = "flex";
-    document.getElementById("function-container").style.display = "flex";
+        // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
+        document.getElementById("login-container").style.display = "none";
+        document.querySelector(".mode-toggle").style.display = "flex";
+        document.getElementById("function-container").style.display = "flex";
     } else {
-    // Người dùng chưa đăng nhập, hiển thị form đăng nhập
-    document.getElementById("login-container").style.display = "block";
+        // Người dùng chưa đăng nhập, hiển thị form đăng nhập
+        document.getElementById("login-container").style.display = "block";
     }
 
     // Khai báo hàng đợi thông báo và biến kiểm tra trạng thái modal
     const notificationQueue = [];
     let isModalActive = false;
-    
+
     // Hàm toàn cục showModal chỉ thêm thông báo vào hàng đợi
-    window.showModal = function(message, type) {
-      notificationQueue.push({ message, type });
-      // Nếu không có modal nào đang hiển thị thì kích hoạt hiển thị thông báo tiếp theo
-      if (!isModalActive) {
-        processQueue();
-      }
+    window.showModal = function (message, type) {
+        notificationQueue.push({ message, type });
+        // Nếu không có modal nào đang hiển thị thì kích hoạt hiển thị thông báo tiếp theo
+        if (!isModalActive) {
+            processQueue();
+        }
     };
-    
+
     function processQueue() {
-      // Nếu hàng đợi rỗng, kết thúc
-      if (!notificationQueue.length) {
-        isModalActive = false;
-        return;
-      }
-    
-      isModalActive = true;
-      // Lấy thông báo đầu tiên từ hàng đợi
-      const { message, type } = notificationQueue.shift();
-    
-      // Các phần tử modal trong HTML
-      const modal = document.getElementById("modal");
-      const modalMessage = document.getElementById("modal-message");
-      const modalContent = modal.querySelector(".modal-content");
-    
-      // Cập nhật nội dung thông báo
-      modalMessage.textContent = message;
-    
-      // Xóa mọi class kiểu cũ
-      modalContent.classList.remove("success", "error", "normal");
-    
-      // Thêm class dựa theo loại thông báo
-      if (type === "success") {
-        modalContent.classList.add("success");
-      } else if (type === "error") {
-        modalContent.classList.add("error");
-      } else {
-        modalContent.classList.add("normal");
-      }
-    
-      // Hiển thị modal
-      modal.classList.add("show");
-    
-      // Sau khi thông báo được hiển thị trong 2 giây, ẩn và xử lý thông báo kế tiếp
-      setTimeout(() => {
-        modal.classList.remove("show");
-        
-        // Đợi một chút (ví dụ 500ms) trước khi hiển thị thông báo tiếp theo để tránh hiện tượng quá chồng
+        // Nếu hàng đợi rỗng, kết thúc
+        if (!notificationQueue.length) {
+            isModalActive = false;
+            return;
+        }
+
+        isModalActive = true;
+        // Lấy thông báo đầu tiên từ hàng đợi
+        const { message, type } = notificationQueue.shift();
+
+        // Các phần tử modal trong HTML
+        const modal = document.getElementById("modal");
+        const modalMessage = document.getElementById("modal-message");
+        const modalContent = modal.querySelector(".modal-content");
+
+        // Cập nhật nội dung thông báo
+        modalMessage.textContent = message;
+
+        // Xóa mọi class kiểu cũ
+        modalContent.classList.remove("success", "error", "normal");
+
+        // Thêm class dựa theo loại thông báo
+        if (type === "success") {
+            modalContent.classList.add("success");
+        } else if (type === "error") {
+            modalContent.classList.add("error");
+        } else {
+            modalContent.classList.add("normal");
+        }
+
+        // Hiển thị modal
+        modal.classList.add("show");
+
+        // Sau khi thông báo được hiển thị trong 2 giây, ẩn và xử lý thông báo kế tiếp
         setTimeout(() => {
-          processQueue();
-        }, 500);
-      }, 2000);
+            modal.classList.remove("show");
+
+            // Đợi một chút (ví dụ 500ms) trước khi hiển thị thông báo tiếp theo để tránh hiện tượng quá chồng
+            setTimeout(() => {
+                processQueue();
+            }, 500);
+        }, 3000);
     }
 
     // ---------------------
     // Login Handling
     // ---------------------
-    document.getElementById("login-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const account = document.getElementById("login-account").value.trim();
-      const password = document.getElementById("login-password").value.trim();
-    
-      if (account === "" || password === "") {
-        alert("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
-        return;
-      }
-    
-      // Lấy các thành phần spinner và nút đăng nhập
-      const loginButton = document.getElementById("login-submit");
-      const spinner = document.getElementById("login-spinner");
-    
-      // Khi bắt đầu đăng nhập, disable nút và hiển thị spinner
-      loginButton.disabled = true;
-      spinner.style.display = "inline-block";
-    
-      // Gửi thông tin đăng nhập tới server qua POST
-      fetch(webAppUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "action=login&account=" + encodeURIComponent(account) + "&password=" + encodeURIComponent(password)
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === "success") {
-            // Nếu đăng nhập thành công, hiển thị thông báo và chuyển giao diện
-            showModal("Đăng nhập thành công", "success");
-            localStorage.setItem("loginTimestamp", new Date().getTime());
-            document.getElementById("login-container").style.display = "none";
-            document.querySelector(".mode-toggle").style.display = "flex";
-            document.getElementById("function-container").style.display = "flex";
-          } else {
-            // Nếu đăng nhập thất bại, hiển thị lỗi
-            showModal(data.message || "Sai tài khoản hoặc mật khẩu", "error");
-          }
+    document.getElementById("login-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const account = document.getElementById("login-account").value.trim();
+        const password = document.getElementById("login-password").value.trim();
+
+        if (account === "" || password === "") {
+            alert("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
+            return;
+        }
+
+        // Lấy các thành phần spinner và nút đăng nhập
+        const loginButton = document.getElementById("login-submit");
+        const spinner = document.getElementById("login-spinner");
+
+        // Khi bắt đầu đăng nhập, disable nút và hiển thị spinner
+        loginButton.disabled = true;
+        spinner.style.display = "inline-block";
+
+        // Gửi thông tin đăng nhập tới server qua POST
+        fetch(webAppUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "action=login&account=" + encodeURIComponent(account) + "&password=" + encodeURIComponent(password)
         })
-        .catch(err => {
-          console.error("Lỗi kết nối đến server", err);
-          showModal("Lỗi kết nối server!", "error");
-        })
-        .finally(() => {
-          // Ẩn spinner và bật lại nút đăng nhập
-          spinner.style.display = "none";
-          loginButton.disabled = false;
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    // Nếu đăng nhập thành công, hiển thị thông báo và chuyển giao diện
+                    showModal("Đăng nhập thành công", "success");
+                    localStorage.setItem("loginTimestamp", new Date().getTime());
+                    document.getElementById("login-container").style.display = "none";
+                    document.querySelector(".mode-toggle").style.display = "flex";
+                    document.getElementById("function-container").style.display = "flex";
+                } else {
+                    // Nếu đăng nhập thất bại, hiển thị lỗi
+                    showModal(data.message || "Sai tài khoản hoặc mật khẩu", "error");
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi kết nối đến server", err);
+                showModal("Lỗi kết nối server!", "error");
+            })
+            .finally(() => {
+                // Ẩn spinner và bật lại nút đăng nhập
+                spinner.style.display = "none";
+                loginButton.disabled = false;
+            });
     });
-     
+
     // Các biến và khởi tạo
     const webAppUrl =
         "https://script.google.com/macros/s/AKfycbyLou-P4MZScdHllSnRnX_39N4vIKrk-Hi4dsbg6dPodNJ3fGprS7L5Zoo_TYtk82jC1Q/exec";
@@ -141,21 +141,18 @@
             const request = indexedDB.open("attendanceDB", 1);
             request.onerror = (event) =>
                 reject("Lỗi mở IndexedDB: " + event.target.errorCode);
-            request.onsuccess = () => resolve(request.result);
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
-                // Lưu bản ghi điểm danh offline
                 if (!db.objectStoreNames.contains("offlineAttendance")) {
                     db.createObjectStore("offlineAttendance", { keyPath: "timestamp" });
                 }
-                // Lưu danh sách học sinh cho offline search
                 if (!db.objectStoreNames.contains("students")) {
                     let store = db.createObjectStore("students", { keyPath: "id" });
                     // Tạo index cho trường rowOrder để dùng khi sắp xếp trực tiếp qua IndexedDB nếu cần
                     store.createIndex("orderIndex", "rowOrder", { unique: false });
-                  }
                 }
             };
+            request.onsuccess = () => resolve(request.result);
         });
     }
 
@@ -169,6 +166,7 @@
             };
             req.onerror = (err) => {
                 console.error("Lỗi lưu điểm danh offline:", err);
+                showModal("Lỗi lưu điểm danh offline", "error");
             };
         }).catch(err => console.error(err));
     }
@@ -235,13 +233,12 @@
             const req = store.clear();
             req.onsuccess = () =>
                 console.log("Đã xoá toàn bộ bản ghi offline từ IndexedDB.");
-                showModal("Đã xoá toàn bộ bản ghi offline", "normal");
+            showModal("Đã xoá toàn bộ bản ghi offline", "normal");
             req.onerror = (err) =>
                 console.error("Lỗi xoá bản ghi offline:", err);
         });
     }
 
-     //
     function loadDataSheetToIndexedDB() {
         const fetchUrl = webAppUrl + "?action=fetchDataSheet";
         fetch(fetchUrl)
@@ -251,39 +248,44 @@
                     console.error("Lỗi từ server:", data.error);
                     return;
                 }
-                // Giả sử data là mảng các đối tượng học sinh
+                // Giả sử data là mảng các đối tượng học sinh có trường rowOrder được thêm từ server
                 openAttendanceDB().then(db => {
                     const transaction = db.transaction("students", "readwrite");
                     const store = transaction.objectStore("students");
-    
-                    // Xóa toàn bộ dữ liệu cũ trước
-                    const clearRequest = store.clear();
-                    clearRequest.onsuccess = () => {
-                        console.log("Đã xóa dữ liệu cũ trong IndexedDB.");
-                        // Sau khi xóa xong, thêm dữ liệu mới
-                        data.forEach(student => {
-                            // Dùng student.id làm key theo keyPath đã khai báo
-                            store.put(student);
-                        });
-                        console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
-                        showModal("Đã tải xong dữ liệu cho tìm kiếm offline", "success");
-                    };
-                    clearRequest.onerror = (err) => {
-                        console.error("Lỗi khi xoá dữ liệu cũ:", err);
-                    };
+                    data.forEach(student => {
+                        store.put(student);
+                    });
+                    console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
+                    showModal("Đã tải xong dữ liệu", "success");
                 }).catch(err => console.error("Lỗi mở DB:", err));
             })
             .catch(error => console.error("Lỗi fetch data sheet:", error));
     }
 
 
-    if (navigator.onLine) {
-        loadDataSheetToIndexedDB();
-        syncCombinedAttendanceRecords();
+    async function runOnlineTasks() {
+        try {
+            await loadDataSheetToIndexedDB();
+            await syncCombinedAttendanceRecords();
+            console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
+        } catch (error) {
+            console.error("Có lỗi khi chạy các hàm online:", error);
+        }
     }
 
-    window.addEventListener("online", () => {
-        syncCombinedAttendanceRecords();
+    if (navigator.onLine) {
+        runOnlineTasks();
+    }
+
+    window.addEventListener("online", async () => {
+        showModal("Đang gửi dữ liệu điểm danh offline và tải dữ liệu...", "normal");
+        try {
+            await loadDataSheetToIndexedDB();
+            await syncCombinedAttendanceRecords();
+            console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
+        } catch (error) {
+            console.error("Có lỗi khi chạy các hàm online:", error);
+        }
     });
 
     function normalizeText(text) {
@@ -296,38 +298,38 @@
     }
 
     function offlineSearch(query) {
-      return new Promise((resolve, reject) => {
-        openAttendanceDB().then(db => {
-          const transaction = db.transaction("students", "readonly");
-          const store = transaction.objectStore("students");
-          // Lấy tất cả dữ liệu từ object store
-          const req = store.getAll();
-          req.onsuccess = () => {
-            console.log("offlineSearch: Đã lấy dữ liệu từ IndexedDB.");
-            const students = req.result;
-            console.log("offlineSearch: students =", students);
-      
-            const normalizedQuery = normalizeText(query);
-            // Lọc các học sinh phù hợp với truy vấn
-            let results = students.filter(student => {
-              return normalizeText(student.id).includes(normalizedQuery) ||
-                     normalizeText(student.fullName).includes(normalizedQuery) ||
-                     normalizeText(student.holyName).includes(normalizedQuery) ||
-                     normalizeText(student.birthDate).includes(normalizedQuery);
-            });
-      
-            // Sắp xếp các kết quả theo thứ tự của trường rowOrder
-            results.sort((a, b) => a.rowOrder - b.rowOrder);
-      
-            console.log("offlineSearch: results =", results);
-            resolve(results);
-          };
-      
-          req.onerror = () => {
-            reject("Lỗi truy xuất dữ liệu offline từ IndexedDB.");
-          };
-        }).catch(err => reject(err));
-      });
+        return new Promise((resolve, reject) => {
+            openAttendanceDB().then(db => {
+                const transaction = db.transaction("students", "readonly");
+                const store = transaction.objectStore("students");
+                // Lấy tất cả dữ liệu từ object store
+                const req = store.getAll();
+                req.onsuccess = () => {
+                    console.log("offlineSearch: Đã lấy dữ liệu từ IndexedDB.");
+                    const students = req.result;
+                    console.log("offlineSearch: students =", students);
+
+                    const normalizedQuery = normalizeText(query);
+                    // Lọc các học sinh phù hợp với truy vấn
+                    let results = students.filter(student => {
+                        return normalizeText(student.id).includes(normalizedQuery) ||
+                            normalizeText(student.fullName).includes(normalizedQuery) ||
+                            normalizeText(student.holyName).includes(normalizedQuery) ||
+                            normalizeText(student.birthDate).includes(normalizedQuery);
+                    });
+
+                    // Sắp xếp các kết quả theo thứ tự của trường rowOrder
+                    results.sort((a, b) => a.rowOrder - b.rowOrder);
+
+                    console.log("offlineSearch: results =", results);
+                    resolve(results);
+                };
+
+                req.onerror = () => {
+                    reject("Lỗi truy xuất dữ liệu offline từ IndexedDB.");
+                };
+            }).catch(err => reject(err));
+        });
     }
 
     // ---------------------
@@ -380,16 +382,12 @@
     let isScanning = false;
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
-      fps: 10,
-      qrbox: (vw, vh) => {
-        const isLarge = vw > 1500;
-        let width = vw * (isLarge ? 0.2 : 0.1);
-        let height = vh * (isLarge ? 0.5 : 0.2);
-        width = width < 250 ? 180 : width;
-        height = height < 200 ? 130 : height;
-        const size = Math.max(Math.min(width, height), 180);
-        return { width: size, height: size };
-      }
+        fps: 10,
+        qrbox: (vw, vh) => {
+            const isLarge = vw > 1500;
+            const size = isLarge ? 245 : 175;
+            return { width: size, height: size };
+        }
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
@@ -866,7 +864,7 @@
                         };
                         showModal("Đã lưu điểm danh " + selectedIds.length + " thiếu nhi offline", "normal");
                         saveAttendanceRecord(batchRecord);
-                        
+
                     }
 
 
@@ -891,78 +889,78 @@
     // EVENT LISTENER CHO PHẦN REPORT
     // ---------------------
     document.getElementById("report-button").addEventListener("click", async function () {
-      const query = document.getElementById("report-query").value.trim();
-      if (!query) {
-        alert("Vui lòng nhập từ khóa để tìm kiếm!");
-        return;
-      }
-      const resultsDiv = document.getElementById("report-results");
-      resultsDiv.innerHTML = `
+        const query = document.getElementById("report-query").value.trim();
+        if (!query) {
+            alert("Vui lòng nhập từ khóa để tìm kiếm!");
+            return;
+        }
+        const resultsDiv = document.getElementById("report-results");
+        resultsDiv.innerHTML = `
         <div style="text-align:center;">
           <div class="spinner"></div>
           <p style="margin-top: 10px; font-size: 0.9rem;">Đang tìm kiếm kết quả...</p>
         </div>`;
-      
-      try {
-        let data = null;
-        
-        // Nếu có mạng, thử gọi API tìm kiếm báo cáo online
-        if (navigator.onLine) {
-          data = await fetch(
-            webAppUrl +
-              "?action=search&q=" +
-              encodeURIComponent(query) +
-              "&mode=report&t=" +
-              new Date().getTime(),
-            {
-              cache: "no-store",
+
+        try {
+            let data = null;
+
+            // Nếu có mạng, thử gọi API tìm kiếm báo cáo online
+            if (navigator.onLine) {
+                data = await fetch(
+                    webAppUrl +
+                    "?action=search&q=" +
+                    encodeURIComponent(query) +
+                    "&mode=report&t=" +
+                    new Date().getTime(),
+                    {
+                        cache: "no-store",
+                    }
+                ).then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                });
             }
-          ).then(response => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
+
+            // Nếu không có mạng hoặc fetch trả về lỗi (data null), chuyển sang offline search
+            if (!navigator.onLine || !data) {
+                console.log("Đang chuyển sang tìm kiếm offline do fetch thất bại hoặc không có mạng...");
+                data = await offlineSearch(query);
             }
-            return response.json();
-          });
-        }
-        
-        // Nếu không có mạng hoặc fetch trả về lỗi (data null), chuyển sang offline search
-        if (!navigator.onLine || !data) {
-          console.log("Đang chuyển sang tìm kiếm offline do fetch thất bại hoặc không có mạng...");
-          data = await offlineSearch(query);
-        }
-        
-        if (data.error) {
-          resultsDiv.innerHTML = `<p style="color: var(--error-color);">${data.error}</p>`;
-          return;
-        }
-        if (!Array.isArray(data) || data.length === 0) {
-          resultsDiv.innerHTML = `<p class="student-mesage">Không tìm thấy, vui lòng kiểm tra lại.</p>`;
-          return;
-        }
-        
-        // Nếu có dữ liệu trả về, hiển thị bảng kết quả báo cáo
-        reportData = data;
-        currentReportPage = 1;
-        renderReportTable();
-      } catch (error) {
-        console.error("Lỗi tìm kiếm:", error);
-        
-        // Trong trường hợp fetch bị lỗi, chuyển sang tìm kiếm offline
-        offlineSearch(query).then((data) => {
-          if (!data.length) {
-            resultsDiv.innerHTML = `<p class="student-mesage">Không tìm thấy, vui lòng kiểm tra lại.</p>`;
-          } else {
+
+            if (data.error) {
+                resultsDiv.innerHTML = `<p style="color: var(--error-color);">${data.error}</p>`;
+                return;
+            }
+            if (!Array.isArray(data) || data.length === 0) {
+                resultsDiv.innerHTML = `<p class="student-mesage">Không tìm thấy, vui lòng kiểm tra lại.</p>`;
+                return;
+            }
+
+            // Nếu có dữ liệu trả về, hiển thị bảng kết quả báo cáo
             reportData = data;
             currentReportPage = 1;
             renderReportTable();
-          }
-        }).catch((err) => {
-          console.error("Lỗi khi tìm kiếm offline:", err);
-          resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu offline.</p>`;
-        });
-      }
+        } catch (error) {
+            console.error("Lỗi tìm kiếm:", error);
+
+            // Trong trường hợp fetch bị lỗi, chuyển sang tìm kiếm offline
+            offlineSearch(query).then((data) => {
+                if (!data.length) {
+                    resultsDiv.innerHTML = `<p class="student-mesage">Không tìm thấy, vui lòng kiểm tra lại.</p>`;
+                } else {
+                    reportData = data;
+                    currentReportPage = 1;
+                    renderReportTable();
+                }
+            }).catch((err) => {
+                console.error("Lỗi khi tìm kiếm offline:", err);
+                resultsDiv.innerHTML = `<p style="color: var(--error-color);">Có lỗi khi tìm kiếm dữ liệu offline.</p>`;
+            });
+        }
     });
-     
+
     function renderReportTable() {
         console.log("Report data:", reportData);
         const resultsDiv = document.getElementById("report-results");
@@ -1068,6 +1066,13 @@
               margin: 5px 0 0;
               font-size: 24px;
             }
+            .header.a {
+              top: 10px;  /* Khoảng cách từ mép trên */
+              left: 10px; /* Khoảng cách từ mép trái */
+              text-align: left;
+              font-size: 10px;  /* Điều chỉnh kích thước chữ */
+            }
+
             table {
               width: 100%;
               border-collapse: collapse;
@@ -1102,10 +1107,16 @@
           </style>
         </head>
         <body>
-          <div class="header">
-            <h1>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</h1>
-            <p>Ngày: ${formattedDate}</p>
-          </div>
+            <div class="header.a">
+                <p>thiếu nhi gioa xu</p>
+                <p>hiep doan thanh</p>
+            </div>
+
+            <div class="header">
+                <h1>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</h1>
+                <p>Ngày: ${formattedDate}</p>
+            </div>  
+            
           <div class="content">
             <table>
               <colgroup>
