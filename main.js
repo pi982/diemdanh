@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 processQueue();
             }, 500);
-        }, 3000);
+        }, 2000);
     }
 
     // ---------------------
@@ -277,16 +277,9 @@ document.addEventListener("DOMContentLoaded", function () {
         runOnlineTasks();
     }
 
-    window.addEventListener("online", async () => {
-        showModal("Đang gửi dữ liệu điểm danh offline và tải dữ liệu...", "normal");
-        try {
-            await loadDataSheetToIndexedDB();
-            await syncCombinedAttendanceRecords();
-            console.log("Cả hai hàm đã chạy tuần tự khi có mạng.");
-        } catch (error) {
-            console.error("Có lỗi khi chạy các hàm online:", error);
-        }
-    });
+    window.addEventListener("online", () => {
+        syncCombinedAttendanceRecords();
+    })
 
     function normalizeText(text) {
         if (!text) return "";
@@ -775,16 +768,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         tableHtml += `</tbody></table>`;
         const totalPages = Math.ceil(searchData.length / pageSize);
-        tableHtml += `<div id="pagination" style="text-align:right; margin-top:10px;">`;
+        tableHtml += `<div id="pagination" style="text-align:right; margin-top:5px;">`;
         if (currentPage > 1) {
             tableHtml += `<button class="pagination-btn" data-page="${currentPage - 1}">Prev</button>`;
         }
-        tableHtml += `<span class="pagination-info"> Page ${currentPage} của ${totalPages} </span>`;
+        tableHtml += `<span class="pagination-info"> Page ${currentPage} / ${totalPages} </span>`;
         if (currentPage < totalPages) {
             tableHtml += `<button class="pagination-btn" data-page="${currentPage + 1}">Next</button>`;
         }
         tableHtml += `</div>`;
-        tableHtml += `<div style="margin-top:-30px; text-align:center;">
+        tableHtml += `<div style="margin-top:-35px; text-align:center;">
                     <button id="confirm-attendance" class="confirm-attendance-btn">Xác nhận</button>
                   </div>`;
         resultsDiv.innerHTML = tableHtml;
@@ -1004,16 +997,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         tableHtml += `</tbody></table>`;
         const totalPages = Math.ceil(reportData.length / reportPageSize);
-        tableHtml += `<div id="report-pagination" style="text-align:right; margin-top:10px;">`;
+        tableHtml += `<div id="report-pagination" style="text-align:right; margin-top:5px;">`;
         if (currentReportPage > 1) {
             tableHtml += `<button class="pagination-btn" data-page="${currentReportPage - 1}">Prev</button>`;
         }
-        tableHtml += `<span class="pagination-info"> Page ${currentReportPage} của ${totalPages} </span>`;
+        tableHtml += `<span class="pagination-info"> Page ${currentReportPage} / ${totalPages} </span>`;
         if (currentReportPage < totalPages) {
             tableHtml += `<button class="pagination-btn" data-page="${currentReportPage + 1}">Next</button>`;
         }
         tableHtml += `</div>`;
-        tableHtml += `<div style="margin-top:-30px; text-align:center;">
+        tableHtml += `<div style="margin-top:-35px; text-align:center;">
                     <button id="print-report" class="confirm-attendance-btn"> In </button>
                   </div>`;
         resultsDiv.innerHTML = tableHtml;
