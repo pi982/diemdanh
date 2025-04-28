@@ -10,6 +10,7 @@
 	--neutral-color: #ddd;
 	--text-color: #333;
 	--heading-color: #555;
+	--light-white: #fafafa;
 }
 
 /* --- Thiết lập cơ bản cho HTML và Body --- */
@@ -426,7 +427,7 @@ th {
 	background: rgba(0, 0, 0, 0.6); /* Tăng độ mờ nền */
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -440,13 +441,13 @@ th {
 	}
 
 .modal-content {
-	background: #fff;
+	background: var(--light-white);
 	border-radius: 8px;
 	text-align: center;
 	position: relative;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 	width: 40%;
-	padding: 50px 10px;
+	padding: 20px 5px;
 }
 
 	.modal-content p,
@@ -477,13 +478,13 @@ th {
 .modal-close {
 	position: absolute;
 	top: 2px;
-	right: 4px;
+	right: 5px;
 	/* Tăng kích thước và làm rõ hơn */
 	font-size: 1.1rem; /* Lớn hơn */
 	color: #888; /* Màu xám */
 	cursor: pointer;
 	line-height: 1;
-	padding: 3px; /* Thêm vùng bấm */
+	padding: 4px; /* Thêm vùng bấm */
 }
 
 	.modal-close:hover {
@@ -611,9 +612,9 @@ header,
 
 	.top-image {
 		/* Giảm kích thước thêm */
-		width: 100px;
-		height: 100px;
-		margin: 35px 0;
+		width: 90px;
+		height: 90px;
+		margin: 40px 0;
 	}
 
 	.mode-toggle,
@@ -668,7 +669,7 @@ header,
 	/* Kích thước font trong dropdown và modal */
 	.modal-content {
 		width: 80%;
-		padding: 50px 10px;
+		padding: 20px 5px;
 	}
 
 		.modal-content p,
