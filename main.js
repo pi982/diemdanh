@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("loginTimestamp")) {
         // Người dùng đã đăng nhập, ẩn form đăng nhập và hiển thị giao diện chính
@@ -121,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Các biến và khởi tạo
     const webAppUrl =
-        "https://script.google.com/macros/s/AKfycbyLou-P4MZScdHllSnRnX_39N4vIKrk-Hi4dsbg6dPodNJ3fGprS7L5Zoo_TYtk82jC1Q/exec";
+        "https://script.google.com/macros/s/AKfycbxyZkkL3uRTcLVUbcxytOKiKfWOAow_hKuwHCW6FcHVSAXTv38ZnYfnW4sCXscdJ2oN/exec";
     let currentAttendanceType = "di-le"; // Mặc định
     let currentMode = "qr"; // Có thể là "qr", "search", "report"
     const searchCache = new Map();
@@ -256,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         store.put(student);
                     });
                     console.log("Đã tải dữ liệu data sheet vào IndexedDB.");
-                    showModal("Đã tải xong dữ liệu", "success");
+                    //showModal("Đã tải xong dữ liệu", "success");
                 }).catch(err => console.error("Lỗi mở DB:", err));
             })
             .catch(error => console.error("Lỗi fetch data sheet:", error));
@@ -376,11 +377,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
         fps: 10,
-        qrbox: (vw, vh) => {
-            const isLarge = vw > 1500;
-            const size = isLarge ? 245 : 175;
-            return { width: size, height: size };
-        }
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
@@ -509,6 +505,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (studentName.trim() !== "") {
             successMsg = "Điểm danh " + studentName;
         }
+
         if (!navigator.onLine) {
             // Nếu offline: lưu bản ghi vào IndexedDB
             const record = {
@@ -554,6 +551,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 saveAttendanceRecord(record);
                 showModal("Có lỗi khi gửi dữ liệu! Đã lưu offline.", "error");
             });
+        // Hiển thị thông báo thành công ngay lập tức sau khi gọi fetch
         showModal(successMsg, "success");
     }
     // ---------------------
