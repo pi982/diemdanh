@@ -376,11 +376,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
         fps: 10,
-        qrbox: (vw, vh) => {
+        /*qrbox: (vw, vh) => {
             const isLarge = vw > 1500;
             const size = isLarge ? 245 : 175;
             return { width: size, height: size };
-        }
+        }*/
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
@@ -768,7 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         tableHtml += `</tbody></table>`;
         const totalPages = Math.ceil(searchData.length / pageSize);
-        tableHtml += `<div id="pagination" style="text-align:right; margin-top:5px;">`;
+        tableHtml += `<div id="pagination" style="text-align:right; margin-top:10px;">`;
         if (currentPage > 1) {
             tableHtml += `<button class="pagination-btn" data-page="${currentPage - 1}">Prev</button>`;
         }
@@ -811,7 +811,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 interactiveElements.forEach(el => el.disabled = true);
                 const confirmBtn = this;
                 const originalText = confirmBtn.innerHTML;
-                confirmBtn.innerHTML = `<span class="spinner spinner-small" style="margin-right: 8px;"></span>Đang xử lý...`;
+                confirmBtn.innerHTML = `<span class="spinner spinner-small" style="margin-right: 8px;"></span>Đang gửi...`;
 
                 const selectedIds = Object.keys(selectedStudents);
                 if (selectedIds.length === 0) {
@@ -997,7 +997,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         tableHtml += `</tbody></table>`;
         const totalPages = Math.ceil(reportData.length / reportPageSize);
-        tableHtml += `<div id="report-pagination" style="text-align:right; margin-top:5px;">`;
+        tableHtml += `<div id="report-pagination" style="text-align:right; margin-top:10px;">`;
         if (currentReportPage > 1) {
             tableHtml += `<button class="pagination-btn" data-page="${currentReportPage - 1}">Prev</button>`;
         }
