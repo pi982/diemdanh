@@ -376,11 +376,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const html5QrCode = new Html5Qrcode("qr-scanner");
     const qrConfig = {
         fps: 10,
-        /*qrbox: (vw, vh) => {
+        qrbox: (vw, vh) => {
             const isLarge = vw > 1500;
             const size = isLarge ? 245 : 175;
             return { width: size, height: size };
-        }*/
+        }
     };
     const scannedCodes = new Set();
     function onScanSuccess(decodedText) {
