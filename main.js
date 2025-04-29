@@ -509,8 +509,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (studentName.trim() !== "") {
             successMsg = "Điểm danh " + studentName;
         }
-        showModal(successMsg, "success");
-
         if (!navigator.onLine) {
             // Nếu offline: lưu bản ghi vào IndexedDB
             const record = {
@@ -521,7 +519,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 recordType: "single",
                 timestamp: Date.now()
             };
-            showModal("Điểm danh offline " + studentName, "success");
+            showModal("Điểm danh offline " + studentName, "normal");
             saveAttendanceRecord(record);
             return;
         }
@@ -556,6 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 saveAttendanceRecord(record);
                 showModal("Có lỗi khi gửi dữ liệu! Đã lưu offline.", "error");
             });
+        showModal(successMsg, "success");
     }
     // ---------------------
     // EVENT LISTENERS CHUYỂN ĐỔI GIAO DIỆN
