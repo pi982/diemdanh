@@ -520,8 +520,8 @@ th {
 
 .spinner-small {
 	margin: 0 5px 0 0; /* Điều chỉnh margin */
-	width: 16px; /* Giảm */
-	height: 16px;
+	width: 15px; /* Giảm */
+	height: 15px;
 	border: 2px solid rgba(255, 255, 255, 0.3); /* Màu sáng hơn trên nền tối */
 	border-left-color: var(--card-bg); /* Giữ nguyên */
 	border-radius: 50%;
