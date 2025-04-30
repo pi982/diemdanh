@@ -1056,13 +1056,6 @@ document.addEventListener("DOMContentLoaded", function () {
               margin: 5px 0 0;
               font-size: 24px;
             }
-            .header.a {
-              top: 10px;  /* Khoảng cách từ mép trên */
-              left: 10px; /* Khoảng cách từ mép trái */
-              text-align: left;
-              font-size: 10px;  /* Điều chỉnh kích thước chữ */
-            }
-
             table {
               width: 100%;
               border-collapse: collapse;
@@ -1097,11 +1090,6 @@ document.addEventListener("DOMContentLoaded", function () {
           </style>
         </head>
         <body>
-            <div class="header.a">
-                <p>thiếu nhi gioa xu</p>
-                <p>hiep doan thanh</p>
-            </div>
-
             <div class="header">
                 <h1>Báo cáo điểm danh${!hasMultipleClasses ? " - " + headerClassText : ""}</h1>
                 <p>Ngày: ${formattedDate}</p>
