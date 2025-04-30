@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Đợi một chút (ví dụ 500ms) trước khi hiển thị thông báo tiếp theo để tránh hiện tượng quá chồng
             setTimeout(() => {
                 processQueue();
-            }, 500);
+            }, 200);
         }, 2000);
     }
 
@@ -234,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const req = store.clear();
             req.onsuccess = () =>
                 console.log("Đã xoá toàn bộ bản ghi offline từ IndexedDB.");
-            showModal("Đã xoá toàn bộ bản ghi offline", "normal");
             req.onerror = (err) =>
                 console.error("Lỗi xoá bản ghi offline:", err);
         });
@@ -299,9 +298,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Lấy tất cả dữ liệu từ object store
                 const req = store.getAll();
                 req.onsuccess = () => {
-                    console.log("offlineSearch: Đã lấy dữ liệu từ IndexedDB.");
+                    //console.log("offlineSearch: Đã lấy dữ liệu từ IndexedDB.");
                     const students = req.result;
-                    console.log("offlineSearch: students =", students);
+                    //console.log("offlineSearch: students =", students);
 
                     const normalizedQuery = normalizeText(query);
                     // Lọc các học sinh phù hợp với truy vấn
@@ -315,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Sắp xếp các kết quả theo thứ tự của trường rowOrder
                     results.sort((a, b) => a.rowOrder - b.rowOrder);
 
-                    console.log("offlineSearch: results =", results);
+                    //console.log("offlineSearch: results =", results);
                     resolve(results);
                 };
 
@@ -952,7 +951,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function renderReportTable() {
-        console.log("Report data:", reportData);
+        //console.log("Report data:", reportData);
         const resultsDiv = document.getElementById("report-results");
         const start = (currentReportPage - 1) * reportPageSize;
         const end = start + reportPageSize;
